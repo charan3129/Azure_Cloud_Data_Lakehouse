@@ -1,0 +1,4 @@
+subscription_id = "your-subscription-id-here"
+location        = "East US 2"
+environment     = "dev"
+project_name    = "lakehouse"

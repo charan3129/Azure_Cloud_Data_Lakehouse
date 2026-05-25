@@ -1,0 +1,74 @@
+project:
+  name: azure-cloud-data-lakehouse
+  version: "1.0.0"
+  environment: dev
+
+storage:
+  account_name: stlakehousedev
+  bronze_container: bronze
+  silver_container: silver
+  gold_container: gold
+  raw_container: raw
+
+databricks:
+  workspace_url: adb-xxxx.azuredatabricks.net
+  cluster_id: xxxx-xxxxx-xxxxxxx
+  spark_version: "13.3.x-scala2.12"
+  node_type: Standard_DS3_v2
+  num_workers: 2
+
+synapse:
+  workspace_name: syn-dev-lakehouse
+  sql_pool: sqlpool_serving
+  sql_endpoint: syn-dev-lakehouse.sql.azuresynapse.net
+
+data_sources:
+  orders:
+    type: rest_api
+    base_url: https://api.ecommerce-demo.com/v1/orders
+    schedule: "0 */6 * * *"
+    format: json
+  clickstream:
+    type: rest_api
+    base_url: https://api.ecommerce-demo.com/v1/clickstream
+    schedule: "0 */1 * * *"
+    format: json
+  inventory:
+    type: sftp
+    host: sftp.warehouse-partner.com
+    path: /exports/inventory/
+    schedule: "0 8 * * *"
+    format: csv
+  customers:
+    type: rest_api
+    base_url: https://api.ecommerce-demo.com/v1/customers
+    schedule: "0 6 * * *"
+    format: json
+
+data_vault:
+  hubs:
+    - hub_customer
+    - hub_product
+    - hub_order
+  links:
+    - lnk_order_customer
+    - lnk_order_product
+  satellites:
+    - sat_customer_details
+    - sat_order_details
+    - sat_product_inventory
+    - sat_clickstream_events
+
+quality:
+  bronze_checks:
+    - schema_validation
+    - null_key_check
+    - row_count_threshold
+  silver_checks:
+    - hash_key_uniqueness
+    - referential_integrity
+    - hash_diff_consistency
+  gold_checks:
+    - aggregation_accuracy
+    - completeness
+    - timeliness
