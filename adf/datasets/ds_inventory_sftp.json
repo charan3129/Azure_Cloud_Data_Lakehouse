@@ -1,0 +1,14 @@
+{
+  "name": "ds_inventory_sftp",
+  "properties": {
+    "type": "SftpLocation",
+    "linkedServiceName": {
+      "referenceName": "ls_sftp_inventory",
+      "type": "LinkedServiceReference"
+    },
+    "typeProperties": {
+      "folderPath": "/exports/inventory/",
+      "fileName": "inventory_@{pipeline().parameters.process_date}.csv"
+    }
+  }
+}

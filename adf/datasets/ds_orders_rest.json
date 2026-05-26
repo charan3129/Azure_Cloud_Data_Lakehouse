@@ -1,0 +1,13 @@
+{
+  "name": "ds_orders_rest",
+  "properties": {
+    "type": "RestResource",
+    "linkedServiceName": {
+      "referenceName": "ls_rest_orders_api",
+      "type": "LinkedServiceReference"
+    },
+    "typeProperties": {
+      "relativeUrl": "/orders?start_date=@{pipeline().parameters.start_date}&end_date=@{pipeline().parameters.end_date}"
+    }
+  }
+}

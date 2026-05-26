@@ -1,0 +1,54 @@
+{
+  "name": "pl_ingest_orders",
+  "properties": {
+    "activities": [
+      {
+        "name": "CopyOrdersToRaw",
+        "type": "Copy",
+        "inputs": [
+          {
+            "referenceName": "ds_orders_rest",
+            "type": "DatasetReference"
+          }
+        ],
+        "outputs": [
+          {
+            "referenceName": "ds_adls_bronze",
+            "type": "DatasetReference",
+            "parameters": {
+              "source_name": "orders"
+            }
+          }
+        ],
+        "typeProperties": {
+          "source": {
+            "type": "RestSource",
+            "httpRequestTimeout": "00:05:00",
+            "paginationRules": {
+              "AbsoluteUrl": "$.next_page_url"
+            }
+          },
+          "sink": {
+            "type": "JsonSink",
+            "formatSettings": {
+              "type": "JsonWriteSettings"
+            }
+          }
+        },
+        "policy": {
+          "retry": 3,
+          "retryIntervalInSeconds": 30,
+          "timeout": "00:30:00"
+        }
+      }
+    ],
+    "parameters": {
+      "start_date": {
+        "type": "string"
+      },
+      "end_date": {
+        "type": "string"
+      }
+    }
+  }
+}

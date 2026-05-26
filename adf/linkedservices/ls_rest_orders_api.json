@@ -1,0 +1,12 @@
+{
+  "name": "ls_rest_orders_api",
+  "type": "Microsoft.DataFactory/factories/linkedservices",
+  "properties": {
+    "type": "RestService",
+    "typeProperties": {
+      "url": "https://api.ecommerce-demo.com/v1",
+      "enableServerCertificateValidation": true,
+      "authenticationType": "Anonymous"
+    }
+  }
+}

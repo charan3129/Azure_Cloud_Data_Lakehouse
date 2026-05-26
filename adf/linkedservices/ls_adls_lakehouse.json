@@ -1,0 +1,14 @@
+{
+  "name": "ls_adls_lakehouse",
+  "type": "Microsoft.DataFactory/factories/linkedservices",
+  "properties": {
+    "type": "AzureBlobFS",
+    "typeProperties": {
+      "url": "https://${storage_account}.dfs.core.windows.net",
+      "accountKey": {
+        "type": "SecureString",
+        "value": "${storage_key}"
+      }
+    }
+  }
+}

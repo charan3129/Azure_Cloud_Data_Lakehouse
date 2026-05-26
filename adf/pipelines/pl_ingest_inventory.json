@@ -1,0 +1,45 @@
+{
+  "name": "pl_ingest_inventory",
+  "properties": {
+    "activities": [
+      {
+        "name": "CopyInventoryFromSFTP",
+        "type": "Copy",
+        "inputs": [
+          {
+            "referenceName": "ds_inventory_sftp",
+            "type": "DatasetReference"
+          }
+        ],
+        "outputs": [
+          {
+            "referenceName": "ds_adls_bronze",
+            "type": "DatasetReference",
+            "parameters": {
+              "source_name": "inventory"
+            }
+          }
+        ],
+        "typeProperties": {
+          "source": {
+            "type": "SftpReadSettings",
+            "recursive": false
+          },
+          "sink": {
+            "type": "JsonSink"
+          }
+        },
+        "policy": {
+          "retry": 3,
+          "retryIntervalInSeconds": 30,
+          "timeout": "00:15:00"
+        }
+      }
+    ],
+    "parameters": {
+      "process_date": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "name": "pl_master_lakehouse",
+  "properties": {
+    "activities": [
+      {
+        "name": "IngestOrders",
+        "type": "ExecutePipeline",
+        "typeProperties": {
+          "pipeline": {
+            "referenceName": "pl_ingest_orders",
+            "type": "PipelineReference"
+          },
+          "parameters": {
+            "start_date": "@pipeline().parameters.start_date",
+            "end_date": "@pipeline().parameters.end_date"
+          },
+          "waitOnCompletion": true
+        }
+      },
+      {
+        "name": "IngestClickstream",
+        "type": "ExecutePipeline",
+        "dependsOn": [],
+        "typeProperties": {
+          "pipeline": {
+            "referenceName": "pl_ingest_clickstream",
+            "type": "PipelineReference"
+          },
+          "parameters": {
+            "process_date": "@pipeline().parameters.process_date"
+          },
+          "waitOnCompletion": true
+        }
+      },
+      {
+        "name": "IngestInventory",
+        "type": "ExecutePipeline",
+        "dependsOn": [],
+        "typeProperties": {
+          "pipeline": {
+            "referenceName": "pl_ingest_inventory",
+            "type": "PipelineReference"
+          },
+          "parameters": {
+            "process_date": "@pipeline().parameters.process_date"
+          },
+          "waitOnCompletion": true
+        }
+      },
+      {
+        "name": "IngestCustomers",
+        "type": "ExecutePipeline",
+        "dependsOn": [],
+        "typeProperties": {
+          "pipeline": {
+            "referenceName": "pl_ingest_customers",
+            "type": "PipelineReference"
+          },
+          "parameters": {
+            "last_modified": "@pipeline().parameters.last_modified"
+          },
+          "waitOnCompletion": true
+        }
+      },
+      {
+        "name": "RunBronzeToSilverNotebook",
+        "type": "DatabricksNotebook",
+        "dependsOn": [
+          {
+            "activity": "IngestOrders",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "IngestClickstream",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "IngestInventory",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "IngestCustomers",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "notebookPath": "/Repos/lakehouse/notebooks/bronze_to_silver",
+          "baseParameters": {
+            "process_date": "@pipeline().parameters.process_date"
+          }
+        },
+        "linkedServiceName": {
+          "referenceName": "ls_databricks",
+          "type": "LinkedServiceReference"
+        }
+      },
+      {
+        "name": "RunSilverToGoldNotebook",
+        "type": "DatabricksNotebook",
+        "dependsOn": [
+          {
+            "activity": "RunBronzeToSilverNotebook",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "notebookPath": "/Repos/lakehouse/notebooks/silver_to_gold",
+          "baseParameters": {
+            "process_date": "@pipeline().parameters.process_date"
+          }
+        },
+        "linkedServiceName": {
+          "referenceName": "ls_databricks",
+          "type": "LinkedServiceReference"
+        }
+      },
+      {
+        "name": "TriggerAirflowQuality",
+        "type": "WebActivity",
+        "dependsOn": [
+          {
+            "activity": "RunSilverToGoldNotebook",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "url": "@pipeline().parameters.airflow_trigger_url",
+          "method": "POST",
+          "body": {
+            "dag_id": "lakehouse_quality_checks",
+            "conf": {
+              "process_date": "@pipeline().parameters.process_date"
+            }
+          }
+        }
+      }
+    ],
+    "parameters": {
+      "start_date": {
+        "type": "string"
+      },
+      "end_date": {
+        "type": "string"
+      },
+      "process_date": {
+        "type": "string"
+      },
+      "last_modified": {
+        "type": "string"
+      },
+      "airflow_trigger_url": {
+        "type": "string",
+        "defaultValue": "http://airflow:8080/api/v1/dags/lakehouse_quality_checks/dagRuns"
+      }
+    }
+  }
+}

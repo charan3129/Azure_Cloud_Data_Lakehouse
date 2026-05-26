@@ -1,0 +1,12 @@
+{
+  "name": "ls_databricks",
+  "type": "Microsoft.DataFactory/factories/linkedservices",
+  "properties": {
+    "type": "AzureDatabricks",
+    "typeProperties": {
+      "domain": "https://${databricks_workspace_url}",
+      "existingClusterId": "${cluster_id}",
+      "authentication": "MSI"
+    }
+  }
+}

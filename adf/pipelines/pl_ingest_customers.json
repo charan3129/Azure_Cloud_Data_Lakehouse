@@ -1,0 +1,45 @@
+{
+  "name": "pl_ingest_customers",
+  "properties": {
+    "activities": [
+      {
+        "name": "CopyCustomersToRaw",
+        "type": "Copy",
+        "inputs": [
+          {
+            "referenceName": "ds_customers_rest",
+            "type": "DatasetReference"
+          }
+        ],
+        "outputs": [
+          {
+            "referenceName": "ds_adls_bronze",
+            "type": "DatasetReference",
+            "parameters": {
+              "source_name": "customers"
+            }
+          }
+        ],
+        "typeProperties": {
+          "source": {
+            "type": "RestSource",
+            "httpRequestTimeout": "00:05:00"
+          },
+          "sink": {
+            "type": "JsonSink"
+          }
+        },
+        "policy": {
+          "retry": 3,
+          "retryIntervalInSeconds": 30,
+          "timeout": "00:20:00"
+        }
+      }
+    ],
+    "parameters": {
+      "last_modified": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+[
+  {
+    "session_id": "SESS-AA001",
+    "customer_id": "CUST-10001",
+    "event_type": "page_view",
+    "page_url": "/products/PROD-5001",
+    "product_id": "PROD-5001",
+    "referrer": "https://google.com",
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "event_timestamp": "2024-01-15T10:25:00Z"
+  },
+  {
+    "session_id": "SESS-AA001",
+    "customer_id": "CUST-10001",
+    "event_type": "add_to_cart",
+    "page_url": "/products/PROD-5001",
+    "product_id": "PROD-5001",
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "event_timestamp": "2024-01-15T10:27:00Z"
+  },
+  {
+    "session_id": "SESS-AA001",
+    "customer_id": "CUST-10001",
+    "event_type": "purchase",
+    "page_url": "/checkout/confirm",
+    "product_id": null,
+    "referrer": null,
+    "device_type": "desktop",
+    "browser": "Chrome",
+    "event_timestamp": "2024-01-15T10:30:00Z"
+  }
+]

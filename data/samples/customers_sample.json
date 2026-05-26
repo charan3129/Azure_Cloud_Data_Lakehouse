@@ -1,0 +1,30 @@
+[
+  {
+    "customer_id": "CUST-10001",
+    "first_name": "Alice",
+    "last_name": "Johnson",
+    "email": "alice.johnson@example.com",
+    "phone": "555-0101",
+    "address_street": "123 Main St",
+    "address_city": "Portland",
+    "address_state": "OR",
+    "address_zip": "97201",
+    "customer_segment": "B2C",
+    "loyalty_tier": "Gold",
+    "created_at": "2022-03-15T08:00:00Z"
+  },
+  {
+    "customer_id": "CUST-10002",
+    "first_name": "Bob",
+    "last_name": "Smith",
+    "email": "bob.smith@example.com",
+    "phone": "555-0102",
+    "address_street": "456 Oak Ave",
+    "address_city": "Seattle",
+    "address_state": "WA",
+    "address_zip": "98101",
+    "customer_segment": "B2C",
+    "loyalty_tier": "Silver",
+    "created_at": "2023-01-20T10:00:00Z"
+  }
+]

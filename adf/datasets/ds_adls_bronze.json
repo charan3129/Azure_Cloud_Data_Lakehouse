@@ -1,0 +1,17 @@
+{
+  "name": "ds_adls_bronze",
+  "properties": {
+    "type": "Json",
+    "linkedServiceName": {
+      "referenceName": "ls_adls_lakehouse",
+      "type": "LinkedServiceReference"
+    },
+    "typeProperties": {
+      "location": {
+        "type": "AzureBlobFSLocation",
+        "fileSystem": "bronze",
+        "folderPath": "@{pipeline().parameters.source_name}/@{formatDateTime(utcnow(), 'yyyy/MM/dd')}"
+      }
+    }
+  }
+}

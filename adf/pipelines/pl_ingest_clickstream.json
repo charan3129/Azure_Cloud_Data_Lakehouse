@@ -1,0 +1,48 @@
+{
+  "name": "pl_ingest_clickstream",
+  "properties": {
+    "activities": [
+      {
+        "name": "CopyClickstreamToRaw",
+        "type": "Copy",
+        "inputs": [
+          {
+            "referenceName": "ds_clickstream_rest",
+            "type": "DatasetReference"
+          }
+        ],
+        "outputs": [
+          {
+            "referenceName": "ds_adls_bronze",
+            "type": "DatasetReference",
+            "parameters": {
+              "source_name": "clickstream"
+            }
+          }
+        ],
+        "typeProperties": {
+          "source": {
+            "type": "RestSource",
+            "httpRequestTimeout": "00:10:00",
+            "paginationRules": {
+              "AbsoluteUrl": "$.pagination.next"
+            }
+          },
+          "sink": {
+            "type": "JsonSink"
+          }
+        },
+        "policy": {
+          "retry": 2,
+          "retryIntervalInSeconds": 60,
+          "timeout": "01:00:00"
+        }
+      }
+    ],
+    "parameters": {
+      "process_date": {
+        "type": "string"
+      }
+    }
+  }
+}

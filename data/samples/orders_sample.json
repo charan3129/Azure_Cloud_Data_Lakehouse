@@ -1,0 +1,65 @@
+[
+  {
+    "order_id": "ORD-2024-00001",
+    "customer_id": "CUST-10001",
+    "order_date": "2024-01-15T10:30:00Z",
+    "order_status": "delivered",
+    "payment_method": "credit_card",
+    "shipping_method": "standard",
+    "total_amount": 149.97,
+    "discount_amount": 15.0,
+    "tax_amount": 11.25,
+    "shipping_cost": 7.99,
+    "line_items": [
+      {
+        "product_id": "PROD-5001",
+        "product_name": "Wireless Mouse",
+        "quantity": 2,
+        "unit_price": 29.99,
+        "category": "Electronics"
+      },
+      {
+        "product_id": "PROD-5002",
+        "product_name": "USB-C Hub",
+        "quantity": 1,
+        "unit_price": 89.99,
+        "category": "Electronics"
+      }
+    ]
+  },
+  {
+    "order_id": "ORD-2024-00002",
+    "customer_id": "CUST-10002",
+    "order_date": "2024-01-15T14:15:00Z",
+    "order_status": "shipped",
+    "payment_method": "paypal",
+    "shipping_method": "express",
+    "total_amount": 249.5,
+    "discount_amount": 0,
+    "tax_amount": 18.71,
+    "shipping_cost": 12.99,
+    "line_items": [
+      {
+        "product_id": "PROD-5010",
+        "product_name": "Mechanical Keyboard",
+        "quantity": 1,
+        "unit_price": 149.99,
+        "category": "Electronics"
+      },
+      {
+        "product_id": "PROD-5020",
+        "product_name": "Desk Pad",
+        "quantity": 1,
+        "unit_price": 34.99,
+        "category": "Office"
+      },
+      {
+        "product_id": "PROD-5001",
+        "product_name": "Wireless Mouse",
+        "quantity": 1,
+        "unit_price": 29.99,
+        "category": "Electronics"
+      }
+    ]
+  }
+]

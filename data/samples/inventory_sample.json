@@ -1,0 +1,20 @@
+[
+  {
+    "product_id": "PROD-5001",
+    "product_name": "Wireless Mouse",
+    "quantity_on_hand": 342,
+    "reorder_point": 100,
+    "warehouse_location": "WH-EAST-A3",
+    "unit_cost": 12.5,
+    "last_restocked_date": "2024-01-10"
+  },
+  {
+    "product_id": "PROD-5002",
+    "product_name": "USB-C Hub",
+    "quantity_on_hand": 85,
+    "reorder_point": 50,
+    "warehouse_location": "WH-EAST-B1",
+    "unit_cost": 35.0,
+    "last_restocked_date": "2024-01-12"
+  }
+]

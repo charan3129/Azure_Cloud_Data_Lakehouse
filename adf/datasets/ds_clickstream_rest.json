@@ -1,0 +1,13 @@
+{
+  "name": "ds_clickstream_rest",
+  "properties": {
+    "type": "RestResource",
+    "linkedServiceName": {
+      "referenceName": "ls_rest_orders_api",
+      "type": "LinkedServiceReference"
+    },
+    "typeProperties": {
+      "relativeUrl": "/clickstream?date=@{pipeline().parameters.process_date}"
+    }
+  }
+}

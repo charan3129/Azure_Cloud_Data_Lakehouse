@@ -1,0 +1,13 @@
+{
+  "name": "ds_customers_rest",
+  "properties": {
+    "type": "RestResource",
+    "linkedServiceName": {
+      "referenceName": "ls_rest_orders_api",
+      "type": "LinkedServiceReference"
+    },
+    "typeProperties": {
+      "relativeUrl": "/customers?modified_since=@{pipeline().parameters.last_modified}"
+    }
+  }
+}

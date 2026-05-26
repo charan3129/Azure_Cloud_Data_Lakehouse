@@ -1,0 +1,17 @@
+{
+  "name": "ls_sftp_inventory",
+  "type": "Microsoft.DataFactory/factories/linkedservices",
+  "properties": {
+    "type": "Sftp",
+    "typeProperties": {
+      "host": "${sftp_host}",
+      "port": 22,
+      "authenticationType": "Basic",
+      "userName": "${sftp_user}",
+      "password": {
+        "type": "SecureString",
+        "value": "${sftp_password}"
+      }
+    }
+  }
+}
