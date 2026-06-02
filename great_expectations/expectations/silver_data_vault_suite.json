@@ -1,0 +1,84 @@
+{
+  "expectation_suite_name": "silver_data_vault_validation",
+  "expectations": [
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "hub_customer_hk"
+      },
+      "meta": {
+        "table": "hub_customer"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_unique",
+      "kwargs": {
+        "column": "hub_customer_hk"
+      },
+      "meta": {
+        "table": "hub_customer"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_match_regex",
+      "kwargs": {
+        "column": "hub_customer_hk",
+        "regex": "^[a-f0-9]{32}$"
+      },
+      "meta": {
+        "table": "hub_customer",
+        "check": "MD5 hash format"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "hub_order_hk"
+      },
+      "meta": {
+        "table": "hub_order"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_unique",
+      "kwargs": {
+        "column": "hub_order_hk"
+      },
+      "meta": {
+        "table": "hub_order"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "hub_product_hk"
+      },
+      "meta": {
+        "table": "hub_product"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "lnk_order_customer_hk"
+      },
+      "meta": {
+        "table": "lnk_order_customer"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "hash_diff"
+      },
+      "meta": {
+        "table": "sat_customer_details",
+        "check": "change detection hash"
+      }
+    }
+  ],
+  "meta": {
+    "layer": "silver",
+    "description": "Validates Data Vault structure integrity"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "expectation_suite_name": "bronze_raw_validation",
+  "expectations": [
+    {
+      "expectation_type": "expect_column_to_exist",
+      "kwargs": {
+        "column": "order_id"
+      },
+      "meta": {
+        "layer": "bronze",
+        "source": "orders"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "order_id"
+      },
+      "meta": {
+        "layer": "bronze"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_unique",
+      "kwargs": {
+        "column": "order_id"
+      },
+      "meta": {
+        "layer": "bronze"
+      }
+    },
+    {
+      "expectation_type": "expect_column_to_exist",
+      "kwargs": {
+        "column": "customer_id"
+      },
+      "meta": {
+        "layer": "bronze",
+        "source": "orders"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "customer_id"
+      },
+      "meta": {
+        "layer": "bronze"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_of_type",
+      "kwargs": {
+        "column": "total_amount",
+        "type_": "float"
+      },
+      "meta": {
+        "layer": "bronze"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": {
+        "column": "total_amount",
+        "min_value": 0,
+        "max_value": 100000
+      },
+      "meta": {
+        "layer": "bronze"
+      }
+    }
+  ],
+  "meta": {
+    "layer": "bronze",
+    "description": "Validates raw ingested data before Data Vault loading"
+  }
+}

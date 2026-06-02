@@ -1,0 +1,93 @@
+{
+  "expectation_suite_name": "gold_business_validation",
+  "expectations": [
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "order_id"
+      },
+      "meta": {
+        "table": "gold_orders_wide"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": {
+        "column": "total_amount",
+        "min_value": 0
+      },
+      "meta": {
+        "table": "gold_orders_wide"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_in_set",
+      "kwargs": {
+        "column": "order_status",
+        "value_set": [
+          "pending",
+          "confirmed",
+          "shipped",
+          "delivered",
+          "cancelled",
+          "returned"
+        ]
+      },
+      "meta": {
+        "table": "gold_orders_wide"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_in_set",
+      "kwargs": {
+        "column": "value_segment",
+        "value_set": [
+          "High Value",
+          "Medium Value",
+          "Low Value",
+          "No Purchase"
+        ]
+      },
+      "meta": {
+        "table": "gold_customer_360"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "lifetime_orders"
+      },
+      "meta": {
+        "table": "gold_customer_360"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_in_set",
+      "kwargs": {
+        "column": "stock_status",
+        "value_set": [
+          "HEALTHY",
+          "LOW_STOCK",
+          "REORDER_NOW"
+        ]
+      },
+      "meta": {
+        "table": "gold_inventory_snapshot"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": {
+        "column": "inventory_value",
+        "min_value": 0
+      },
+      "meta": {
+        "table": "gold_inventory_snapshot"
+      }
+    }
+  ],
+  "meta": {
+    "layer": "gold",
+    "description": "Validates Gold layer business rules and completeness"
+  }
+}
