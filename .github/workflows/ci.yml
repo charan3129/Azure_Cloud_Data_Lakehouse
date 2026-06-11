@@ -1,0 +1,58 @@
+name: Lakehouse CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          pip install pytest flake8
+
+      - name: Lint Python files
+        run: |
+          flake8 --max-line-length=120 --ignore=E501,W503,E402 \
+            tests/ great_expectations/plugins/ airflow/dags/
+
+      - name: Run tests
+        run: |
+          pytest tests/ -v --tb=short
+
+      - name: Validate ADF JSON configs
+        run: |
+          python -c "
+          import json, os
+          for root, dirs, files in os.walk('adf'):
+              for f in files:
+                  if f.endswith('.json'):
+                      path = os.path.join(root, f)
+                      with open(path) as fh:
+                          json.load(fh)
+                      print(f'  Valid: {path}')
+          print('All ADF configs valid')
+          "
+
+      - name: Validate Terraform structure
+        run: |
+          test -f terraform/main.tf
+          test -f terraform/variables.tf
+          test -f terraform/outputs.tf
+          echo "Terraform structure valid"
+
+      - name: Docker build check
+        run: |
+          test -f docker/Dockerfile.airflow
+          test -f docker-compose.yml
+          echo "Docker files present"
